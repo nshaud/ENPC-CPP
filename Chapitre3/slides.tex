@@ -1,0 +1,863 @@
+\input{../preamble.tex}
+\subtitle{Variables, tests, boucles et fonctions}
+\date{}
+\maketitle
+
+\section{Variables}
+
+\begin{frame}[fragile]
+	\frametitle{Type des variables}
+	\begin{block}{Langage typé}
+        Dans un \textbf{langage typé}, les variables appartiennent à un espace donné et ne peuvent en changer. C++ est un langage typé.
+	\end{block}
+	\vfill
+	\begin{minipage}{0.38\linewidth}
+		\begin{minted}{cpp}
+1: int i;
+2: i = 2;
+3: float d = 5.6;
+4: char a = 'z';
+5: bool v = true;
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.58\linewidth}
+		\begin{enumerate}
+			\item Déclaration d'un entier \texttt{\textbf{i}}
+            \item Affectation de la valeur 2 à \texttt{\textbf{i}}
+			\item Déclaration et affectation d'un réel \texttt{\textbf{d}}
+            \item Idem pour un caractère \texttt{\textbf{a}}
+            \item Idem pour un booléen \texttt{\textbf{v}}
+		\end{enumerate}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Déclaration et affectation d'une variable}
+	\begin{block}{Déclaration}
+		\centering
+		\texttt{\textbf{type} nom\_de\_variable \textbf{\huge ;}}
+	\end{block}
+	\begin{block}{Affectation}
+		\centering
+		\texttt{nom\_de\_variable = valeur \textbf{\huge ;}}
+	\end{block}
+	\vspace{0.5cm}
+	Il est possible de faire les deux en même temps :
+	\begin{center}
+        \mintinline{cpp}{type nom_de_variable = valeur ;}
+	\end{center}
+
+	\begin{minipage}{0.40\linewidth}
+		\begin{minted}{python}
+a = 2 # un entier
+a = 3.4 # un reel
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.57\linewidth}
+		\begin{minted}{cpp}
+a = 2; // ERREUR: a n'existe pas
+int a; // Déclaration 
+a = 2; // Affectation
+double pi = 3.14;
+		\end{minted}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Les types natifs}
+	\begin{tabular}{|r|c|c|c|}
+		\hline
+		\textbf{Type} & \textbf{Espace} & \textbf{min} & \textbf{max}\\
+		\hline
+		int & $\mathbb{Z}$ & $-2147483648$ & $2147483647$ \\
+		\hline
+		unsigned int & $\mathbb{N}$ & $0$ & $4294967295$ \\
+		\hline
+		char & $\mathbb{Z}$ & -128 & 127\\
+		\hline
+		unsigned char & $\mathbb{Z}$ & 0 & 255\\
+		\hline
+		float & $\mathbb{R}$& \multicolumn{2}{c|}{3.4E +/- 38}\\
+		\hline
+		double & $\mathbb{R}$& \multicolumn{2}{c|}{1.7E +/- 308} \\
+		\hline
+		bool & $\{0,1\}$& false (0)& true (1)\\
+		\hline
+	\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Exemple}
+	\begin{minted}{cpp}
+int i = 2; // Définition et affectation
+cout << i << endl; // Affiche "2"
+
+int j;
+j = i; // j est une nouvelle variable valant 2
+i = 1; // Ne modifie que i, pas j !
+cout << i << ", " << j << endl; // Affiche "1, 2"
+
+int k, l, m = 4; // Définition multiple
+k = l = 3;   // Affectation multiple
+cout << k << ", " << l << ", " << m << endl; // Affiche "3, 3, 4"
+
+int n = 5, o = n, p = INT_MAX ; // Initialisations
+cout << n << ", " << o << ", " << p << endl;
+
+int q = r = 4 ; // Erreur ! (r n'existe pas)
+
+const int s = 12; // Définit s comme constante valant 12
+s = 13; // Erreur !
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Conversions et règles de calcul}
+	\begin{minipage}{0.42\linewidth}
+	\begin{block}{Opérateurs mathématiques}
+		\begin{itemize}
+			\item \texttt{\textbf{+}} : addition
+			\item \texttt{\textbf{-}} : soustraction
+			\item \texttt{\textbf{*}} : multiplication
+			\item \texttt{\textbf{/}} : division (entière ou non)
+			\item \texttt{\textbf{\%}} : modulo
+		\end{itemize}
+	\end{block}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.56\linewidth}
+	\begin{minted}{cpp}
+int a = 15, b = 7;
+int c = a/b; // c=2
+int d = a % b; // d=1
+
+double e = b/a; // ATTENTION e = 0
+double f = double(b)/a; // f = 0.467
+double g = (b+0.)/a // g = 0.467
+
+float h = 5.6;
+int i = h; // i = 5 ==> WARNING
+int i = int(h); // i = 5, pas de warning
+	\end{minted}
+\end{minipage}
+\end{frame}
+
+\section{Tests}
+
+\begin{frame}
+	\frametitle{Expressions booléennes}
+	Une expression booléenne est une affirmation, elle est soit \textbf{VRAIE} soit \textbf{FAUSSE}.
+	\vfill
+	\begin{block}{En C++}
+		Le résultat d'une expression booléenne est un booléen, type \texttt{\textbf{bool}} qui prend les valeurs \texttt{\textbf{true}} ou \texttt{\textbf{false}}.
+	\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Opérateurs booléen et de comparaison}
+	\begin{minipage}{0.43\linewidth}
+		\begin{itemize}
+			\item \texttt{\textbf{==}} : égalité
+			\item \texttt{\textbf{!=}} : différence
+			\item \texttt{\textbf{<}} (\texttt{\textbf{<=}}) : infériorité
+			\item \texttt{\textbf{>}} (\texttt{\textbf{>=}}) : supériorité
+			\item \texttt{\textbf{\&\&}} : ET logique
+			\item \texttt{\textbf{||}} : OU logique
+			\item \texttt{\textbf{!}} : NON logique
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.53\linewidth}
+		\begin{minted}{cpp}
+int a = 3, b = 5, c == 8;
+bool b1 = a == b; // b1 = 0 (false)
+bool b2 = (a+c) != b // b2 = 1 (true)
+cout << ( c >= a ) << endl; // 1
+bool b3 = b2 && (a+b == c) // b3 = 1
+cout << b3 || b1 << endl; // 1
+cout << ! b3 << endl; // 0
+		\end{minted}
+	\end{minipage}
+	\begin{block}{Priorités}
+		Le \textbf{ET} est prioritaire sur le \textbf{OU}
+	\end{block}
+
+	\begin{block}{a XOR b}
+		\centering
+		\texttt{ a \&\& (!b) || (!a) \&\& b }
+	\end{block}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{SI (\dots) FAIRE \dots SINON \dots}
+	\begin{block}{Syntaxe}
+		\centering
+		\texttt{\textbf{if}(expression booléenne)\{...\} \textbf{else} \{...\}}
+	\end{block}
+	\begin{minted}{cpp}
+int annee;
+cout << "Entrez une année" << endl;
+cin >> annee;
+
+if( annee % 4 == 0){
+    if(annee % 100 == 0 && annee%400 != 0){
+        cout << "Cette année n'est pas bissextile" << endl;
+    } else {
+        cout << "Année bissextile" << endl;
+    }
+} else {
+    cout << "Cette année n'est pas bissextile" << endl;
+}
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Le switch}
+	Le \texttt{\textbf{switch}} permet une énumération de ce qu'il faut faire en fonction des valeurs d'une variable \textbf{entière}.
+    \vspace{-0.3em}
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+char c;
+if (c == 'a'){
+    cout << "Lettre 'a'";
+}
+else if (c == 'f'){
+    cout << "Lettre 'f'";
+} else if(c=='e'||c=='i'||c=='o'
+             ||c=='u'||c=='y') {
+    cout << "Autre voyelle";
+} else {
+    cout << "Autre chose";
+}
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+char c;
+switch ( c ) {
+case 'a' :
+    cout << "Lettre 'a'";
+    break ;
+case 'f' :
+    cout << "Lettre 'f'";
+    break ;
+case 'e' :
+case 'i' :
+case 'o' :
+case 'u' :
+case 'y' :
+    cout<<"Autre voyelle" ;
+    break ;
+default :
+    cout<<"Une consonne";
+    break ;
+		\end{minted}
+	\end{minipage}
+\end{frame}
+
+\section{Portée}
+
+\begin{frame}[fragile]
+	\frametitle{Portée des variables}
+	\begin{block}{La règles des accolades}
+		Une variable n'existe que dans le bloc (et les sous-blocs), défini par des accolades, dans lequel elle a été déclarée.
+	\end{block}
+
+	\begin{minipage}{0.45\linewidth}
+		\begin{minted}{python}
+a = 3
+b = 6
+if a < b:
+    print(a)
+    c = a + b
+    print(c) # OK
+print(c) # OK, c existe en dehors de son bloc
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.50\linewidth}
+		\begin{minted}{cpp}
+int a = 3, b = 6;
+if(a < b){
+    cout << a << endl; // OK
+    int c = a + b;
+    cout << c << endl; // OK
+}
+cout << c << endl; // ERREUR !
+		\end{minted}
+	\end{minipage}
+\end{frame}
+
+\section{Boucles}
+
+\begin{frame}[fragile]
+	\frametitle{TANT QUE (\dots) FAIRE \dots}
+
+    \begin{block}{Syntaxe}
+        \texttt{\textbf{while}(expression booléenne)\{...\}}\\
+        \texttt{\textbf{do}\{...\}\textbf{while}(expression booléenne);}
+    \end{block}
+
+    \begin{minipage}{0.47\linewidth}
+        \begin{minted}{python}
+a = 30
+while a>0:
+    print(a)
+    a -= 2
+
+        \end{minted}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.47\linewidth}
+        \begin{minted}{cpp}
+int a = 30;
+while(a > 0){
+    cout << a << endl;
+    a -=2;
+}
+
+int b = 1;
+do {
+    b *= 2;
+}
+while(b != 1024);
+
+        \end{minted}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{POUR (\dots) FAIRE \dots}
+    \begin{block}{Syntaxe}
+        \texttt{\textbf{for}(initialisation{\huge;}expression booléenne{\huge;}itération) \{...\}}\\
+    \end{block}
+
+    \begin{minipage}{0.37\linewidth}
+        \begin{minted}{python}
+for a in xrange(10):
+    print(a)
+
+# C'est équivalent à :
+
+a = 0
+while a < 10:
+    print(a)
+    a +=1
+        \end{minted}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.57\linewidth}
+        \begin{minted}{cpp}
+for(int a = 0; a < 10; a++){ // a++ est a = a + 1
+    cout << a << endl;
+}
+
+# C'est équivalent à :
+
+int a = 0;
+while(a < 10){
+    cout << a << endl;
+    a++;
+}
+        \end{minted}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Sortir des boucles}
+    L'instruction \texttt{\textbf{break}} permet de forcer la sortie d'une boucle.
+    \vfill
+    \begin{minipage}{0.37\linewidth}
+    \begin{minted}{cpp}
+/*
+Sortir d'une boucle infinie
+*/
+int a = 1;
+while(true){ // boucle infini
+    a *= 2;
+    cout << a << endl;
+    if(a > 5000){
+        break;
+    }
+}
+    \end{minted}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.57\linewidth}
+    \begin{minted}{cpp}
+/*
+Sortir avant le terme d'un for
+*/
+for(int i = 0; i < 10; i++){
+    int res;
+    cout << "Entrez un entier" << endl;
+    cin >> res;
+    if(res == 5){
+        cout << "5" << endl;
+        break;
+    }
+}
+    \end{minted}
+    \end{minipage}
+
+\end{frame}
+
+\section{Fonctions}
+
+\begin{frame}
+	\frametitle{Sens mathématique}
+
+    En C++, le concept de fonction est le même qu'en mathématiques :
+    \begin{center}
+        \only<1>{\includegraphics[width=0.5\linewidth]{images/fonctions_00.pdf}}
+        \only<2>{\includegraphics[width=0.5\linewidth]{images/fonctions_01.pdf}}
+        \only<3>{\includegraphics[width=0.5\linewidth]{images/fonctions_02.pdf}}
+        \only<4>{\includegraphics[width=0.5\linewidth]{images/fonctions_03.pdf}}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Exemple}
+
+\begin{block}{La fonction signe}
+$$
+\begin{array}{cccc}
+signe: & \mathbb{R} & \to & \{-1,0,1\} \\
+& x & \mapsto & \left\{
+    \begin{split}
+    -1 \: \text{si} \: x < 0\\
+    1 \: \text{si}  \: x > 0\\
+    0 \: \text{sinon}
+    \end{split}
+  \right.
+\end{array}
+$$
+\end{block}
+Deux manières d'écrire la même fonction.
+\begin{minipage}{0.47\linewidth}
+\begin{minted}{cpp}
+int signe(double x){
+  int s = 0;
+	  
+  if(x < 0)
+    s = -1;
+  if(x > 0)
+    s = 1;
+  return s;
+}
+\end{minted}
+\end{minipage}
+\hfill
+\begin{minipage}{0.47\linewidth}
+\begin{minted}{cpp}
+int signe(double x){
+    if(x < 0)
+        return -1;
+    if(x > 0)
+        return 1;
+    return 0;
+}
+\end{minted}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Fonction sans retour}
+	Pour des fonctions qui ne renvoient rien, on utilise le type de retour vide : \texttt{\textbf{void}}.
+
+	Le retour vide : \texttt{\textbf{return;}} est optionnel.
+
+	\begin{block}{Afficher}
+	Afficher les coordonnées $(x,y,z)$ d'un vecteur :
+		$$
+		\begin{array}{cccc}
+		affiche: & \mathbb{R}^3 & \to & \emptyset \\
+		\end{array}
+		$$
+	\end{block}
+
+	\begin{minted}{cpp}
+void affiche(double x, double y, double z){
+    cout << "(" << x << "," << y << "," << z << ")" << endl;
+    return; // OPTIONNEL
+}
+void affiche(double x, double y, double z){
+    cout << "(" << x << "," << y << "," << z << ")" << endl;
+}
+	\end{minted}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Limitations}
+	\begin{itemize}
+	\item Il n'est pas possible de renvoyer plusieurs valeurs.
+	\begin{minipage}{0.46\linewidth}
+		\begin{minted}{python}
+def f():
+    a = 3
+    b = 5
+    return a, b # OK
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+int f(){
+   int a = 3, b = 5;
+   return a, b; // ERREUR
+}
+		\end{minted}
+	\end{minipage}
+	\item On ne peut pas modifier les arguments (ils sont copiés).
+	\begin{minipage}{0.46\linewidth}
+			\begin{minted}{cpp}
+void switch_1(double a,
+              double b){
+    // Échange a et b
+    double c = b;
+    b = a;
+    a = c;
+}
+			\end{minted}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.51\linewidth}
+			\begin{minted}{cpp}
+int main(){
+    double x = 5, y = 7;
+    switch_1(x,y);
+    cout << x << ", " << y;
+    // Affiche "5, 7"
+}
+			\end{minted}
+		\end{minipage}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Le passage par référence}
+
+	Le passage par référence est une solution aux problèmes précédents. Il autorise la modification de l'argument concerné.
+
+	\begin{block}{Syntaxe}
+	\texttt{type f(type1 {\huge\textbf{\&}} arg1, type2 {\huge\textbf{\&}} arg2, type3 arg3 ...)\{...\}}
+	\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Passage par référence : exemples}
+	\begin{itemize}
+	\item "Renvoyer" deux ou plus valeurs (modifier les arguments)
+	\begin{minipage}{0.49\linewidth}
+		\begin{minted}{cpp}
+void f(int & a, int & b){
+   a = 3;
+   b = 5;
+}
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+int main(){
+   int x, y;
+   f(x, y);
+   cout << x << " " << y;
+   // Affiche "3, 5"
+}
+		\end{minted}
+	\end{minipage}
+	\item Modifier les arguments
+
+	\begin{minipage}{0.49\linewidth}
+			\begin{minted}{cpp}
+void switch_2(double & a,
+              double & b){
+    // Échange a et b
+    double c = b;
+    b = a;
+    a = c;
+}
+			\end{minted}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.47\linewidth}
+			\begin{minted}{cpp}
+int main(){
+    double x = 5, y = 7;
+    switch_2(x,y);
+    cout << x << " " << y;
+    // affiche 7 5
+}
+			\end{minted}
+		\end{minipage}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Passage par référence : zoom sur la mémoire 1}
+Fonctionnement de la fonction \texttt{switch\_1}
+\centering
+\only<1>{\includegraphics[width=\linewidth]{images/switch_1_00.pdf}}
+\only<2>{\includegraphics[width=\linewidth]{images/switch_1_01.pdf}}
+\only<3>{\includegraphics[width=\linewidth]{images/switch_1_02.pdf}}
+\only<4>{\includegraphics[width=\linewidth]{images/switch_1_03.pdf}}
+\only<5>{\includegraphics[width=\linewidth]{images/switch_1_04.pdf}}
+\only<6>{\includegraphics[width=\linewidth]{images/switch_1_05.pdf}}
+\only<7>{\includegraphics[width=\linewidth]{images/switch_1_06.pdf}}
+\only<8>{\includegraphics[width=\linewidth]{images/switch_1_07.pdf}}
+\only<9>{\includegraphics[width=\linewidth]{images/switch_1_08.pdf}}
+\only<10>{\includegraphics[width=\linewidth]{images/switch_1_09.pdf}}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Passage par référence : zoom sur la mémoire 2}
+Fonctionnement de la fonction \texttt{switch\_2}
+\centering
+\only<1>{\includegraphics[width=\linewidth]{images/switch_1_00.pdf}}
+\only<2>{\includegraphics[width=\linewidth]{images/switch_2_00.pdf}}
+\only<3>{\includegraphics[width=\linewidth]{images/switch_2_01.pdf}}
+\only<4>{\includegraphics[width=\linewidth]{images/switch_2_02.pdf}}
+\only<5>{\includegraphics[width=\linewidth]{images/switch_2_03.pdf}}
+\only<6>{\includegraphics[width=\linewidth]{images/switch_2_04.pdf}}
+\only<7>{\includegraphics[width=\linewidth]{images/switch_2_05.pdf}}
+\only<8>{\includegraphics[width=\linewidth]{images/switch_2_06.pdf}}
+\only<9>{\includegraphics[width=\linewidth]{images/switch_2_07.pdf}}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Surcharge}
+	Il est possible de donner le même nom à deux fonctions (ou plus) à condition que les types ou le nombre des arguments de celles-ci soient différents.
+	\vfill
+	\begin{minipage}{0.47\linewidth}
+	\begin{minted}{cpp}
+int f(int v1, int v2){
+    return v1 + v2;
+}
+
+double f(int v1, int v2){
+    return 0.5;
+}
+
+// ERREUR !!!
+// Même nom +
+// arguments identiques
+	\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+	\begin{minted}{cpp}
+int f(int v1, int v2){
+    return v1 + v2;
+}
+
+double f(int v1, int v2, int v3){
+    return 0.5;
+}
+
+// OK
+// Même nom mais
+// arguments différents
+	\end{minted}
+	\end{minipage}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Portée, déclaration}
+
+	\begin{block}{Appel de fonction}
+		Comme pour les variables on ne peut utilisée une fonction que si elle a été déclarée préalablement.
+	\end{block}
+	\vfill
+
+	\begin{minipage}{0.47\linewidth}
+
+	\begin{minted}{cpp}
+void f(){
+    g(3);
+    // ERREUR g est inconnue
+}
+
+void g(int i){
+    ...
+}
+	\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+	\begin{minted}{cpp}
+void g(int i){
+   ...
+}
+
+void f(){
+    g(3); //OK
+}
+	\end{minted}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Portée, déclaration}
+
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+void f(){
+    g(3);
+    // ERREUR g est inconnue
+}
+
+void g(int i){
+    f();
+}
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+
+		\begin{minted}{cpp}
+void g(int i); // Déclaration
+
+void f(){
+    g(3); // OK
+
+// Définition
+void g(int i){
+    ...
+}
+		\end{minted}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Variables locales et globales}
+
+	\begin{block}{Variables globales}
+		Les variables globales sont déclarées en dehors des fonctions.
+		Elles sont accessibles à l'ensemble du programme.
+	\end{block}
+
+	\begin{minipage}{0.47\linewidth}
+		\begin{minted}{cpp}
+void f(){
+    ...
+    int i1 = 3;
+    ...
+}
+
+void g(int i){
+    cout << i1 << endl;
+    /* ERREUR i1 inconnu
+       i1 est une variable
+       de f */
+}
+		\end{minted}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.47\linewidth}
+
+		\begin{minted}{cpp}
+int i1; // variable globale
+
+void f(){
+    ...
+    i1 = 3;
+    ...
+}
+
+void g(int i){
+    cout << i1 << endl;
+    /* OK i1 est une variable
+       globale */
+}
+		\end{minted}
+	\end{minipage}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+	\frametitle{Variables locales et globales}
+
+\begin{alert}{Attention}
+	L'usage des variables globales est à limiter au maximum :
+	\begin{itemize}
+		\item La communication entre les fonctions est source de bugs.
+		\item Elles rendent les fonctions difficilement réutilisables.
+	\end{itemize}
+\end{alert}
+
+\begin{block}{Usage}
+	Les variables globales sont des constantes générales.
+\end{block}
+
+\begin{minted}{cpp}
+const int width = 800; // constante non modifiable
+const int height = 600;
+
+int main(){
+    ...
+    openWindow(width, height);
+    ...
+    height = 5; // ERREUR : height est une constante
+}
+\end{minted}
+
+\end{frame}
+
+
+\section{TP}
+
+\begin{frame}{Organisation des TPs}
+    \begin{itemize}
+        \item En salle informatique de 9h45 à 11h15.
+        \item Par groupe de 2
+        \item Sur machine de l'école ou machine perso
+        \item OS au choix
+            \begin{itemize}
+                \item Machine perso : Linux, Windows, OSX
+                \item École : Windows, Linux
+            \end{itemize}
+        \item IDE au choix (QtCreator recommandé)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{TP de la semaine}
+
+	\begin{block}{Sujet}
+        \begin{itemize}
+            \item Utilisation du débogueur
+            \item Utiliser Imagine++ pour jouer à Pong !
+        \end{itemize}
+	\end{block}
+
+\end{frame}
+
+
+\begin{frame}{Installation sur les portables}
+
+	\begin{block}{Instructions}
+		Elles sont accessibles via le site du cours :\\
+		\textbf{\url{http://imagine.enpc.fr/~monasse/Info/}}
+	\end{block}
+
+	\begin{block}{Pour travailler chez vous}
+		Installer un IDE et Imagine++ sur vos portables.
+	\end{block}
+	
+	\begin{alertblock}{En cas de problème}
+		Séance d'installation lundi 26 septembre à 16h45 \\
+		Prendre rendez-vous avec Pascal Monasse
+	\end{alertblock}
+
+\end{frame}
+
+\end{document}
