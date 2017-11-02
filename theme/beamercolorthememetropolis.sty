@@ -1,0 +1,150 @@
+%%
+%% This is file `beamercolorthememetropolis.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamercolorthememetropolis.dtx  (with options: `package')
+%% ---------------------------------------------------------------------------
+%% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+%% contributors can be found at
+%% 
+%%     https://github.com/matze/mtheme/graphs/contributors
+%% 
+%% and the original template was based on the HSRM theme by Benjamin Weiss.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthememetropolis}[2016/03/14 Metropolis color theme]
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /metropolis/color/block/.cd,
+    .is choice,
+    transparent/.code=\metropolis@block@transparent,
+    fill/.code=\metropolis@block@fill,
+}
+\pgfkeys{
+  /metropolis/color/background/.cd,
+    .is choice,
+    dark/.code=\metropolis@colors@dark,
+    light/.code=\metropolis@colors@light,
+}
+\newcommand{\metropolis@color@setdefaults}{
+  \pgfkeys{/metropolis/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+\definecolor{onera}{RGB}{47,99,183}% same as 91% cyan + 60% magenta
+\definecolor{brightonera}{RGB}{166,232,248}
+\setbeamercolor{structure}{fg=onera}
+\definecolor{naomi}{RGB}{51,51,153}
+\setbeamercolor{frametitle}{fg=white}
+\definecolor{complementary}{RGB}{255,179,46}
+\definecolor{darkcomplementary}{RGB}{191, 121, 0}
+\definecolor{oGreen}{RGB}{0, 96, 0}
+
+\newcommand{\metropolis@colors@dark}{
+  \setbeamercolor{onera text}{%
+    fg=black!2,
+    bg=onera
+  }
+  \usebeamercolor[fg]{onera text}
+}
+\newcommand{\metropolis@colors@light}{
+  \setbeamercolor{onera text}{%
+    fg=onera,
+    bg=black!2
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=darkcomplementary
+}
+\setbeamercolor{example text}{%
+  fg=oGreen
+}
+\setbeamercolor{titlelike}{fg=onera text.fg, use=onera text, parent=onera text}
+\setbeamercolor{author}{fg=onera text.fg!50!black, use=onera text, parent=onera text}
+\setbeamercolor{date}{fg=onera text.fg!50!black, use=onera text, parent=onera text}
+\setbeamercolor{institute}{fg=onera text.fg!50!black, use=onera text, parent=onera text}
+\setbeamercolor{structure}{fg=onera text.fg!50!black, use=onera text, fg=onera text.fg}
+\setbeamercolor{palette primary}{%
+  use=onera text,
+  fg=onera text.bg,
+  bg=onera text.fg
+}
+\setbeamercolor{frametitle}{%
+  use=palette primary,
+  parent=palette primary
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\metropolis@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=onera text,
+    fg=onera text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+}
+\newcommand{\metropolis@block@fill}{
+  \setbeamercolor{block title}{%
+    use=onera text,
+    fg=white,
+    bg=onera text.fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, onera text},
+    bg=block title.bg!5!onera text.bg
+  }
+}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    fg=white,
+    bg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+    use={block title, example text},
+    fg=white,
+    bg=example text.fg
+}
+\setbeamercolor{block body alerted}{%
+    use=block body,
+    bg=alerted text.fg!10!onera text.bg
+}
+\setbeamercolor{block body example}{%
+    use=block body,
+    bg=example text.fg!10!onera text.bg
+}
+\setbeamercolor{footnote}{fg=black!70}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{footline}{fg=black!50}%,bg=onera text.fg}
+\metropolis@color@setdefaults
+\ProcessPgfPackageOptions{/metropolis/color}
+\mode<all>
+\endinput
+%%
+%% End of file `beamercolorthememetropolis.sty'.

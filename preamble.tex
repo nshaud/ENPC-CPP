@@ -1,0 +1,44 @@
+\documentclass{beamer}
+\usepackage[french]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage[compatibility=false]{caption}
+\usepackage[toc,page]{appendix}
+\usepackage{minted}
+
+\makeatletter
+  \def\beamer@calltheme#1#2#3{%
+    \def\beamer@themelist{#2}
+    \@for\beamer@themename:=\beamer@themelist\do
+    {\usepackage[{#1}]{\beamer@themelocation/#3\beamer@themename}}}
+
+  \def\usefolder#1{
+    \def\beamer@themelocation{#1}
+  }
+  \def\beamer@themelocation{}
+
+
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\usefolder{../theme}
+\usetheme[numbering=fraction,block=fill,progressbar=frametitle]{metropolis} %Use metropolis theme
+
+\definecolor{bg}{rgb}{0.95,0.95,0.95}
+\setminted{bgcolor=bg,fontsize=\scriptsize,autogobble,mathescape,breaklines,tabsize=2}
+\setmintedinline{breaklines,autogobble,fontsize=\scriptsize}
+
+\begin{document}
+
+\title[C++]{Introduction à la programmation en C++}
+\author[nicolas.audebert@onera.fr]{Nicolas Audebert}
+\setmainfont{Fira Sans}
+
+
+\AtBeginSection[]{
+  \begin{frame}{Plan de la séance}
+  \small \tableofcontents[currentsection]
+  \end{frame}
+}
