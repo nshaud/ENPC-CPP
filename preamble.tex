@@ -20,6 +20,9 @@
   }
   \def\beamer@themelocation{}
 
+\patchcmd{\minted@colorbg}{\noindent}{\medskip\noindent}{}{}
+\apptocmd{\endminted@colorbg}{\par\medskip}{}{}
+\makeatother
 
 \newcolumntype{Y}{>{\centering\arraybackslash}X}
 
@@ -29,6 +32,7 @@
 \definecolor{bg}{rgb}{0.95,0.95,0.95}
 \setminted{bgcolor=bg,fontsize=\scriptsize,autogobble,mathescape,breaklines,tabsize=2}
 \setmintedinline{breaklines,autogobble,fontsize=\scriptsize}
+\setbeamersize{text margin left=8pt,text margin right=8pt}
 
 \begin{document}
 
