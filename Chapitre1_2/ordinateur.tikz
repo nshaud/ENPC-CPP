@@ -1,0 +1,26 @@
+\begin{tikzpicture}[every node/.style={inner sep=0,outer sep=0}]
+
+\node (cpu) at (0,1.5) {\includegraphics[width=3cm]{\imagefolder/cpu}};
+\node at (cpu.north) {Processeur (CPU)};
+
+\uncover<2->{\node (motherboard) at (0,-2.5) {\includegraphics[width=5cm]{\imagefolder/motherboard}};
+\node[anchor=north] at (motherboard.south) {Carte mère};}
+
+\uncover<4->{\node (hdd) at (-5,1.5)  {\includegraphics[width=3cm]{\imagefolder/harddrive}};
+\node[anchor=south] at (hdd.north) {Stockage {\scriptsize (disque dur, SSD\dots)}};}
+
+\uncover<3->{\node (ram) at (-5,-2.5)  {\includegraphics[width=3cm]{\imagefolder/ram}};
+\node[anchor=north,yshift=-0.3cm] at (ram.south) {Mémoire vive (RAM)};}
+
+\uncover<5->{\node (periph) at (5,1.5)  {\includegraphics[width=3cm]{\imagefolder/periph}};
+\node[anchor=north] at (periph.south) {Périphériques};}
+
+\uncover<6->{\node (gpu) at (5,-2.5)  {\includegraphics[width=3cm]{\imagefolder/gpu}};
+\node[anchor=north] at (gpu.south) {Carte graphique (GPU)};}
+
+\uncover<2->{\draw[<->, thick] (cpu.south) -- (motherboard.north);}
+\uncover<3->{\draw[<->, thick] (motherboard.west) -- (ram.east);}
+\uncover<6->{\draw[<->, thick] (motherboard.east) -- (gpu.west);}
+\uncover<5->{\draw[<->, thick] (motherboard.north east) |- (periph.west);}
+\uncover<4->{\draw[<->, thick] (motherboard.north west) |- (hdd.east);}
+\end{tikzpicture}

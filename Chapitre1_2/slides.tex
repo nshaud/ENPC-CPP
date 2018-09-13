@@ -1,21 +1,24 @@
 \input{../preamble.tex}
 \subtitle{Préliminaires}
-\date{}
+\date{14 septembre 2018}
 \maketitle
 
 \section{Introduction}
 
 \begin{frame}{Avant toute chose}
   \begin{block}{Supports de cours}
-    Site du cours : {\small \url{http://imagine.enpc.fr/~monasse/Info/}}\\
-  	Slides : {\small \url{https://nicolas.audebert.at/teaching/}}
+  \begin{itemize}
+    \item Site du cours : {\small \url{http://imagine.enpc.fr/~monasse/Info/}}\\
+  	\item Planches : {\small \url{https://nicolas.audebert.at/teaching/}}
+  	\item Le polycopié \og La programmation pour les élèves-ingénieurs \fg
+  \end{itemize}
   \end{block}
 
   \begin{block}{Organisation}
     \begin{itemize}
         \item 12 séances
-	\item Cours magistral de 8h30 à 9h30 puis TP de 9h45 à 11h15
-        \item TPs à rendre chaque semaine sur \href{https://educnet.enpc.fr}{\textbf{Educnet}}
+      	\item Cours magistral de 8h30 à 9h30 puis TP de 9h45 à 11h15
+        \item Travaux pratiques à rendre chaque semaine sur \href{https://educnet.enpc.fr}{\textbf{Educnet}}
     \end{itemize}
   \end{block}
 
@@ -26,31 +29,21 @@
 
 \begin{frame}{Composants de l'ordinateur}
 	\centering
-	\includegraphics[width=\linewidth]{images/ordi_5.pdf}
-	%\only<1>{\includegraphics[width=\linewidth]{images/ordi_1.pdf}}
-	%\only<2>{\includegraphics[width=\linewidth]{images/ordi_2.pdf}}
-	%\only<3>{\includegraphics[width=\linewidth]{images/ordi_3.pdf}}
-	%\only<4>{\includegraphics[width=\linewidth]{images/ordi_4.pdf}}
-	%\only<5>{\includegraphics[width=\linewidth]{images/ordi_5.pdf}}
+	\def\imagefolder{./images/}
+	\resizebox{\textwidth}{!}{\input{ordinateur.tikz}}
 \end{frame}
 
 \begin{frame}{Système d'exploitation}
 
-  \begin{block}{OS (operating system)}
-    Le système d'exploitation est le logiciel qui dirige les ressources de l'ordinateur. Il gère les périphériques et ordonne les tâches du processeur en fonction de leur priorité. Il s'occupe également de la mémoire vive et du stockage.
+  \begin{block}{OS (operating system)} 
+    Le système d'exploitation orchestre les ressources de l'ordinateur. Il ordonne les tâches du processeur en fonction de leur priorité, gère la mémoire vive et le stockage et dirige la communication avec les périphériques.\\
+    $\rightarrow$ \textbf{Exemples :} Windows, Linux, MacOS, Android, BSD\dots
   \end{block}
   \vfill
+  \foreach \picpath in {logo_windows10,logo_ubuntu,logo_osX,logo_android}{%
   \begin{minipage}{0.25\linewidth}
-	  \includegraphics[width=\linewidth]{images/logo_windows10.jpg}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.25\linewidth}
-	  \includegraphics[width=\linewidth]{images/logo_ubuntu.png}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.25\linewidth}
-	  \includegraphics[width=\linewidth]{images/logo_osX.png}
-  \end{minipage}
+	  \includegraphics[width=0.95\linewidth]{images/\picpath}
+  \end{minipage}}
 \end{frame}
 
 \begin{frame}[fragile]{Langages de programmation}
@@ -60,10 +53,10 @@
   \begin{minipage}{0.40\linewidth}
 	\begin{itemize}[<+->]
 		\item Langage machine (\textbf{assembleur})
-		\item Langage exotique (Ook, \textbf{LOLCODE}\dots)
 		\item Langage procédural (FORTRAN, \textbf{C}\dots)
 		\item Langage objet (\textbf{C++}, Python, Java\dots)
 		\item Langage fonctionnel (Lisp, \textbf{OCaml}\dots)
+		\item Langage exotique (Ook, \textbf{LOLCODE}\dots)
 	\end{itemize}
   \end{minipage}
   \hfill
@@ -87,14 +80,6 @@ _start:
      int 80h
 	\end{minted}
 	\onslide<2>
-	\begin{minted}{basic}
-HAI
-CAN HAS STDIO?
-BTW affiche le message
-VISIBLE "Hello world!"
-KTHXBYE
-	\end{minted}
-	\onslide<3>
 	\begin{minted}{c}
 #include<stdio.h>
 
@@ -104,7 +89,7 @@ int main()
     return 0;
 }
 	\end{minted}
-	\onslide<4>
+	\onslide<3>
 	\begin{minted}{cpp}
 #include <iostream>
 using namespace std;
@@ -114,64 +99,89 @@ int main(){
   return 0;
 }
 	\end{minted}
-	\onslide<5>
+	\onslide<4>
 	\begin{minted}{ocaml}
-print_endline "Hello world!"
+  print_endline "Hello world!"
 	\end{minted}
+	\onslide<5>
+	\begin{minted}{basic}
+  HAI
+  CAN HAS STDIO?
+  BTW affiche le message
+  VISIBLE "Hello world!"
+  KTHXBYE
+	  \end{minted}
 	\end{overprint}
   \end{minipage}
+\end{frame}
+
+\begin{frame}{Haut niveau ou bas niveau}
+\includegraphics[width=\textwidth]{images/abstraction}\\
+\centering
+{\small Crédits image: \href{https://yellowpencil.com/blog/imagining-the-future-of-web-design/}{YellowPencil}}
 \end{frame}
 
 \begin{frame}{Compilé ou interprété ?}
 	\begin{block}{Langages compilés}
 		\begin{itemize}
-		\item Le compilateur traduit à l'avance le code en instructions machines.
+		\item Le \textbf{compilateur} traduit à l'avance le code en instructions machines.
 		\item Il transforme le code en un fichier exécutable (par exemple, \texttt{.exe} sous Windows).
 		\item Exemples : C, C++, OCaml\dots
 		\end{itemize}
 	\end{block}
 	\begin{block}{Langages interprétés}
 		\begin{itemize}
-		\item L'interpréteur traduit le code à la volée.
-		\item Le code n'a pas besoin d'être transformé, mais l'interpèteur est indispensable.
-		\item Exemples : Python, Ruby, PHP\dots
+		\item L'\textbf{interpréteur} traduit le code à la volée.
+		\item Le code n'a pas besoin d'être transformé, mais l'interpréteur est indispensable.
+		\item Exemples : Javascript, Python, Ruby, PHP\dots
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Pourquoi programmer en C++}
-    \begin{itemize}
+    \begin{itemize}[<+->]
         \item Un langage \textbf{complexe} : savoir programmer en C++ c'est savoir programmer dans tous les langages de la même famille (Java, C\#, Go, Rust\dots).
         \item Un langage \textbf{complet}, qui permet de travailler à haut niveau d'abstraction ou à bas niveau, proche de l'architecture de la machine.
-        \item Un des langages \textbf{les plus utilisés}.
-        \item Toujours en \textbf{évolution}/simplification.
+        \item Un langage \textbf{multi-paradigmes}, qui autorise la programmation objet, générique et impérative.
+        \item Un des langages \textbf{les plus utilisés} (\href{https://www.tiobe.com/tiobe-index/}{4\ieme langage du Tiobe Index avec 7,4\%}, \href{https://www.developpez.com/actu/185087/Quels-sont-les-langages-de-programmation-les-plus-utilises-par-les-developpeurs-Une-analyse-des-evenements-publics-sur-GitHub/}{4\ieme langage le plus actif sur Github}).
+        \item Un langage industriel utilisé pour les microcontrôleurs, la simulation, les jeux vidéo, les bases de données\dots
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Python vs C++}
-	\begin{itemize}
-		\item Le Python est un langage interpreté, le C++ est un langage compilé.
-		\item Le C++ sera en général plus rapide que le Python
-		\item La délimitation des blocs se fait par des accolades \{\} (tabulation en Python)
-		\item Chaque instruction se termine par un {\huge\textbf{;}}
-		\item Les variables vivent dans le bloc où elles ont été créées.
-	\end{itemize}
+\begin{frame}[fragile]{Différences entre Python et C++}
 	\begin{minipage}{0.45\linewidth}
 		\begin{minted}{python}
-for id in range(10):
-    a = id
-print(a)
+# Python
+a = 0.
+b = 5
+for i in range(10):
+    a = b * i + 0.1
+    print(a)
+print((a + b) / 2)
 		\end{minted}
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.45\linewidth}
 		\begin{minted}{cpp}
-for(int id=0; id<10; id++){
-    a = id;
+// C++
+float a = 0
+int b = 5
+for(int i = 0; i < 10; i++){
+    a = b * i + 0.1;
+    cout << a;
 }
-cout << a ;
+cout << (a + b) / 2;
 		\end{minted}
 	\end{minipage}
+
+	\begin{itemize}[<+->]
+		\item Le Python est un langage interpreté, le C++ est un langage compilé
+		\item Le C++ sera en général plus rapide que le Python
+		\item La délimitation des blocs se fait par des accolades {\Large \{\}}
+		\item Chaque instruction se termine par un {\huge\textbf{;}} \uncover<4->{\textcolor{red}{$\leftarrow$ indispensable}}
+		\item Les variables vivent dans le bloc où elles ont été créées
+		\item Le type des variables est annoncé à leur déclaration
+	\end{itemize}
 \end{frame}
 
 
@@ -192,7 +202,7 @@ cout << a ;
 /* commentaires par
  * bloc */
 
-// utilisation du nom de domaine de la STL
+// utilisation de l'espace de nom de la librairie standard
 using namespace std;
 
 int main()
@@ -218,8 +228,8 @@ int main()
     Appeler des libraires donne accès à des fonctions pré-existantes. \\
     C'est l'équivalent du \mintinline{python}{import ...} en Python.\\
 
-    \texttt{\textbf{iostream}} fait partie de la Standard Template Library (STL).\\
-    \texttt{\textbf{iostream}} permet de gérer les affichages à l'écran et de récupérer des entrées clavier.
+    \mintinline{cpp}{<iostream>} fait partie de la Standard Template Library (STL).\\
+    \mintinline{cpp}{<iostream>} permet de gérer les affichages à l'écran et de récupérer des entrées clavier.
 \end{frame}
 
 
@@ -232,6 +242,8 @@ using namespace std;
     En C++, les librairies peuvent avoir un nom de domaine (équivalent du nom de module en Python).
 
     Définir le nom de domaine permet de ne pas le répéter avec chaque fonction appelée, de façon similaire à \mintinline{python}{from ... import *} en Python.
+    
+    Exemple: \mintinline{cpp}{std::cout << std::endl;} se raccourcit en \mintinline{cpp}{cout << endl;}.
 
 \end{frame}
 
@@ -248,8 +260,11 @@ int main(){
         
     \end{minted}
 
-    La fonction \texttt{\textbf{main}} est le point d'entrée du programme.\\
-    Cette fonction est \textbf{obligatoire}.
+    La fonction \mintinline{cpp}{main()} est le point d'entrée du programme. Lorsque l'exécutable est lancé, c'est la fonction \mintinline{cpp}{main()} qui est jouée. Cette fonction est \textbf{obligatoire}.
+    
+    \begin{alertblock}{Attention}
+    Contrairement à Python, il n'est pas possible d'écrire des instructions en dehors de la fonction \mintinline{cpp}{main}, celles-ci ne seront jamais exécutées.
+    \end{alertblock}
 \end{frame}
 
 
@@ -261,9 +276,9 @@ int main(){ // type : int, nom : main, arguments : rien
         
     \end{minted}
 
-    \texttt{\textbf{int}} est le type attendu du résultat de la fonction (ici un entier).\\
-    \texttt{\textbf{main}} est le nom de la fonction.\\
-    Le corps de la fonction (code) est compris entre des accolades.
+    \mintinline{cpp}{int} est le type attendu du résultat de la fonction (ici un entier).\\
+    \mintinline{cpp}{main} est le nom de la fonction.\\
+    Les instructions formant le corps de la fonction sont comprises entre des accolades.
 
     \begin{minted}{cpp}
         
@@ -272,7 +287,7 @@ int main(){ // type : int, nom : main, arguments : rien
 }
         
     \end{minted}
-    \texttt{\textbf{main}} renvoie un entier, ici $0$.
+    \mintinline{cpp}{main()} renvoie un entier, ici $0$.
 \end{frame}
 
 
@@ -285,40 +300,42 @@ int main(){ // type : int, nom : main, arguments : rien
         
     \end{minted}
 
-    \texttt{\textbf{cout}} : mot-clé pour écrire à l'écran.\\
-    \texttt{\textbf{"HelloWorld"}} est une chaîne de caractères.\\
-    \texttt{\textbf{endl}} : mot-clé pour passer à la ligne.
+    \mintinline{cpp}{cout} : ouvre une communication permettant d'écrire à l'écran.\\
+    \mintinline{cpp}{<<} : transfère l'élément de droite vers l'élément de gauche.\\
+    \mintinline{cpp}{"Hello world!"} est une chaîne de caractères.\\
+    \mintinline{cpp}{endl} : caractère spécial de passage à la ligne.
 
     \begin{minted}{cpp}
-        
-    std::cout << "Hello world!"; // si on utilise pas le nom de domaine de la STL
-    std::cout << std::endl;    // ie si pas de  using namespace std
-    std::cout << "Hello world!" << std::endl;
+    using namespace std;    
+    cout << "Hello world!";
+    cout << endl;
+    cout << "Hello world!" << endl;
         
     \end{minted}
 \end{frame}
 
 \begin{frame}{Quelques règles pour bien démarrer}
     \begin{itemize}
-        \item Le code s'écrit \textbf{toujours} dans une fonction (le \texttt{main} pour l'instant).
-        \item L'indentation (mise en forme) n'est pas nécessaire mais sera obligatoire dans le cours (lisibilité).
-        \item Il y a une \textbf{unique} fonction \texttt{main} par programme.
+        \item Le code s'écrit \textbf{toujours} dans une fonction (\mintinline{cpp}{main} pour l'instant).
+        \item Mettre en forme le code en l'indentant est \textbf{obligatoire}, mais pas nécessaire.
+        \item Il y a \textbf{une et une seule} fonction \mintinline{cpp}{main()} par programme.
+        \item Commenter son programme permet de le relire plus facilement.
     \end{itemize}
 \end{frame}
 
-\section{IDE, CMake, Imagine}
+\section{Environnement de travail}
 
 \begin{frame}
-  \frametitle{IDE}
+  \frametitle{Environnements de développement}
 
   \begin{block}{Integrated Development Environment}
-      L'Environnement de Développement Intégré est un logiciel qui regroupe des fonctions pour aider le développeur, et ainsi gagner en productivité.
+      L'Environnement de Développement Intégré est un logiciel à destination des développeurs et développeuses dont les fonctionalités aident à programmer.
   \end{block}
 
   Il existe de nombreux IDE, spécialisés pour un ou plusieurs langages :
   \begin{itemize}
-  \item \textbf{C++} : QTCreator, Eclipse, Microsoft Visual Studio, KDevelop, XCode\dots
-  \item Python : Spyder, WingIDE, PyCharm...
+  \item \textbf{C++} : QtCreator, Eclipse, Visual Studio, KDevelop, XCode, CodeBlocks\dots
+  \item Python : Spyder, WingIDE, PyCharm\dots
   \item \dots
   \end{itemize}
 \end{frame}
@@ -326,10 +343,24 @@ int main(){ // type : int, nom : main, arguments : rien
 \begin{frame}{QtCreator}
     \textbf{QtCreator} est l'IDE que nous utiliserons dans ce cours.
     \begin{itemize}
-        \item Multiplate-forme (Windows, Linux, OS X)
-        \item Complet
+        \item Multiplateforme (Windows, Linux, OS X)
         \item Relativement simple à utiliser
+        \item Débogueur intégré
+        \item Autocomplétion
+        \item Gestion de Cmake
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bibliothèque Imagine++}
+  La bibliothèque Imagine++ est une bibliothèque de fonctions graphiques développée à l'ENPC.\\
+  Elle contient notamment:
+  \begin{itemize}
+      \item des fonctions pour l'affichage graphique (images, formes géométriques\dots),
+      \item la gestion du clavier et de la souris,
+      \item des outils de gestion des fenêtres (création, destruction, affichage temps réel\dots),
+      \item le nécessaire pour l'agèbre linéaire de base (matrices, vecteurs\dots).
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{IDE et projets}
@@ -346,7 +377,7 @@ int main(){ // type : int, nom : main, arguments : rien
 
 \begin{frame}
   \frametitle{CMake}
-  \textbf{CMake} est \textbf{moteur de production},  un logiciel pour tous les OS qui permet de générer les projets pour différents IDEs.
+  \textbf{CMake} est \textbf{moteur de production}, un logiciel multiplateforme permettant de générer des projets indifféremment de l'IDE utilisé.
 
   \begin{block}{Utilisation}
 	  \begin{itemize}
@@ -359,9 +390,9 @@ int main(){ // type : int, nom : main, arguments : rien
 \begin{frame}[fragile]
   \frametitle{CMakeLists.txt}
 
-
-Utilisation de fichiers de configuration :
-\begin{minted}{cmake}  
+Exemple de fichier \texttt{CMakeLists.txt} décrivant un projet:
+\begin{minted}{cmake}
+# CMakeLists.txt
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 #Inclusion des modules (ici Imagine++)
@@ -372,40 +403,37 @@ ENDIF(NOT EXISTS "${d}")
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${d}/CMake")
 FIND_PACKAGE(Imagine)
 
-# Création d'un projet
-PROJECT(TP1Supplement)
-# Ajout d'un exécutable
-add_executable(Tp1Supplement Tp1Supplement.cpp)
-# Utilisation de Imagine++ (partie Graphics)
-ImagineUseModules(Tp1Supplement Graphics)
+# Création d'un projet "monTP"
+PROJECT(monTP)
+# Ajout d'un exécutable "monTP"
+add_executable(monTP monfichier.cpp)
+# Utilisation de Imagine++ (partie Graphics) pour l'exécutable "monTP"
+ImagineUseModules(monTP Graphics)
 \end{minted}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Déboguer avec l'IDE}
-	Le débogueur est outil important de l'IDE par rapport au bloc-notes + ligne 
-	de commande.
+	Le débogueur est outil important de l'IDE par rapport au bloc-notes + ligne de commande.
 
-	Il permet d'exécuter le programme pas à pas et de détecter où se trouvent les erreurs dans le code.
-
-	\begin{block}{QtCreator}
-	dans l’onglet Projects, passer comme argument à CMake \textbf{\texttt{-DCMAKE\_BUILD\_TYPE=Debug}}
-	\end{block}
-
-	\begin{block}{MakeFiles}
-	Passer \textbf{\texttt{CMAKE\_BUILD\_TYPE}} en \textbf{\texttt{Debug}}
-	\end{block}
-
+	Il permet d'exécuter le programme pas à pas, de l'arrêter à n'importe quel endroit et d'inspecter le contenu des variables. Cela permet de détecter plus simplement où se trouvent les erreurs dans le code.
 \end{frame}
 
-\begin{frame}
-  \frametitle{Librairie Imagine++}
-  La librairie Imagine++ est une librairie graphique développée à l'ENPC.
-  Elle contient :
-  \begin{itemize}
-      \item des fonctions pour l'affichage graphique (images, dessin\dots)
-      \item le nécessaire pour l'agèbre linéaire de base (matrices, vecteurs\dots)
-  \end{itemize}
+\begin{frame}{Travaux pratiques}
+
+\textbf{Aujourd'hui :}
+\begin{itemize}
+  \item Prise en main d'un IDE,
+  \item Compilation, exécution, débogage,
+  \item Ce TP n'est pas à rendre.
+\end{itemize}
+
+\textbf{Installation de QtCreator et Imagine++ sur vos machines :}
+\begin{itemize}
+  \item À faire chez vous\dots
+  \item ou aux séances d'aide : cet après-midi 14/09 de 13h30 à 18h en F206/F207 et lundi 17/09 de 16h45 à 18h45 en F107.
+\end{itemize}
+
 \end{frame}
 
 \end{document}
