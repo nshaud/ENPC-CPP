@@ -1,33 +1,95 @@
 \input{../preamble.tex}
-\subtitle{Variables, tests, boucles et fonctions}
-\date{}
+\subtitle{Variables, structures conditionnelles, boucles et fonctions}
+\date{21 septembre 2018}
 \maketitle
+
+\section{Rappels}
+\begin{frame}{Dans l'épisode précédent\dots}
+
+\begin{block}{Les langages de programmation}
+Les langages de programmation comportent une syntaxe et une grammaire permettant d'exprimer des instructions humainement compréhensibles, qui seront traduites pour être exécutées par la machine. Dans ce cours, nous étudierons le \textbf{C++}.
+\end{block}
+
+\begin{exampleblock}{Compilation ou interprétation}
+C++ est un langage \textbf{compilé} : la traduction C++ $\rightarrow$ langage machine est réalisée par le \textbf{compilateur} avant l'exécution. L'exécutable généré peut être utilisé n'importe où.
+
+Python est un langage \textbf{interprété} : la traduction Python $\rightarrow$ langage machine est réalisée à la volée par l'\textbf{interpréteur}, qui est nécessaire pour exécuter le programme.
+\end{exampleblock}
+
+\end{frame}
+
+\section{C++}
+
+\begin{frame}{Une brève histoire du C++}
+
+\begin{minipage}{0.33\textwidth}
+  \centering
+  
+  \includegraphics[width=0.7\textwidth]{images/cpp.png}
+  
+  {\footnotesize Logo du langage C++}
+  \medskip
+  
+  \includegraphics[width=0.9\textwidth]{images/bjarne.jpg}
+  
+  {\footnotesize Bjarne Stroustrup, créateur du C++ (\href{https://fr.wikipedia.org/wiki/Bjarne_Stroustrup}{Wikipédia})}
+\end{minipage}%
+\begin{minipage}{0.65\textwidth}
+\begin{block}{Historique du C++}
+  \begin{itemize}
+    \item 1983 : débuts du C++, premier compilateur
+    \item 1985 : \emph{The C++ Programming Language}, premier manuel de référence
+    \item 1989 : version 2.0 du langage
+    \item 1998 : première standardisation du langage
+    \item 2003, 2011, 2014, 2017 : mises à jour du langage (actualisation du standard, nouvelles fonctionnalités)
+    \item 2020 : prochaine standardisation 
+  \end{itemize}
+\end{block}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Pourquoi le C++ ?}
+
+\begin{block}{C et C++}
+C++ est une augmentation du langage C pour lui en fournir de nouvelles fonctionnalités :
+\begin{itemize}
+  \item Les classes (et la notion d'objets),
+  \item La gestion des exceptions,
+  \item La surcharge des opérateurs,
+  \item Les templates,
+  \item Les espaces de noms,
+  \item \dots
+\end{itemize}
+\end{block}
+
+C++ comporte également une bibliothèque standard riche.
+
+C++ est un langage \textbf{libre de droit}.
+\end{frame}
 
 \section{Variables}
 
 \begin{frame}[fragile]
 	\frametitle{Type des variables}
 	\begin{block}{Langage typé}
-        Dans un \textbf{langage typé}, les variables appartiennent à un espace donné et ne peuvent en changer. C++ est un langage typé.
+  Dans un \textbf{langage typé}, les variables représentent une catégorie fixée d'objets et ne peuvent en changer. C++ est un langage typé.
 	\end{block}
 	\vfill
 	\begin{minipage}{0.38\linewidth}
-		\begin{minted}{cpp}
-1: int i;
-2: i = 2;
-3: float d = 5.6;
-4: char a = 'z';
-5: bool v = true;
-		\end{minted}
+\uncover<1>{\mintinline{cpp}{1: int i;}}\\
+\uncover<2>{\mintinline{cpp}{2: i = 2;}}\\
+\uncover<3>{\mintinline{cpp}{3: float d = 5.6;}}\\
+\uncover<4>{\mintinline{cpp}{4: char a = 'z';}}\\
+\uncover<5>{\mintinline{cpp}{5: bool v = true;}}
 	\end{minipage}
 	\hfill
 	\begin{minipage}{0.58\linewidth}
 		\begin{enumerate}
-			\item Déclaration d'un entier \texttt{\textbf{i}}
-            \item Affectation de la valeur 2 à \texttt{\textbf{i}}
-			\item Déclaration et affectation d'un réel \texttt{\textbf{d}}
-            \item Idem pour un caractère \texttt{\textbf{a}}
-            \item Idem pour un booléen \texttt{\textbf{v}}
+			\item<1> Déclaration d'un entier \texttt{\textbf{i}}
+      \item<2> Affectation de la valeur 2 à \texttt{\textbf{i}}
+			\item<3> Déclaration et affectation d'un réel \texttt{\textbf{d}}
+      \item<4> Idem pour un caractère \texttt{\textbf{a}}
+      \item<5> Idem pour un booléen \texttt{\textbf{v}}
 		\end{enumerate}
 	\end{minipage}
 \end{frame}
@@ -35,28 +97,33 @@
 \begin{frame}[fragile]
 	\frametitle{Déclaration et affectation d'une variable}
 	\begin{block}{Déclaration}
+		La déclaration annonce l'existence d'une variable:\\
 		\centering
 		\texttt{\textbf{type} nom\_de\_variable \textbf{\huge ;}}
 	\end{block}
 	\begin{block}{Affectation}
+	  L'affectation assigne une valeur à une variable déclarée:\\
 		\centering
 		\texttt{nom\_de\_variable = valeur \textbf{\huge ;}}
 	\end{block}
-	\vspace{0.5cm}
-	Il est possible de faire les deux en même temps :
-	\begin{center}
-        \mintinline{cpp}{type nom_de_variable = valeur ;}
-	\end{center}
 
-	\begin{minipage}{0.40\linewidth}
+	Il est possible de faire les deux en même temps :
+
+  \begin{minipage}{\textwidth}
+  \centering \mintinline{cpp}{type nom_de_variable = valeur ;}
+  \end{minipage}
+
+	\begin{minipage}{0.48\linewidth}
 		\begin{minted}{python}
+# Python
 a = 2 # un entier
-a = 3.4 # un reel
+a = 3.4 # un réel
 		\end{minted}
 	\end{minipage}
 	\hfill
-	\begin{minipage}{0.57\linewidth}
+	\begin{minipage}{0.50\linewidth}
 		\begin{minted}{cpp}
+// C++
 a = 2; // ERREUR: a n'existe pas
 int a; // Déclaration 
 a = 2; // Affectation
@@ -67,25 +134,22 @@ double pi = 3.14;
 
 \begin{frame}
 	\frametitle{Les types natifs}
-	\begin{tabular}{|r|c|c|c|}
-		\hline
+	C++ connaît un certain nombre de types numériques nativement.
+	
+	\centering
+	\begin{tabularx}{0.9\textwidth}{ r c c c }
+		\toprule
 		\textbf{Type} & \textbf{Espace} & \textbf{min} & \textbf{max}\\
-		\hline
-		int & $\mathbb{Z}$ & $-2147483648$ & $2147483647$ \\
-		\hline
-		unsigned int & $\mathbb{N}$ & $0$ & $4294967295$ \\
-		\hline
-		char & $\mathbb{Z}$ & -128 & 127\\
-		\hline
-		unsigned char & $\mathbb{Z}$ & 0 & 255\\
-		\hline
-		float & $\mathbb{R}$& \multicolumn{2}{c|}{3.4E +/- 38}\\
-		\hline
-		double & $\mathbb{R}$& \multicolumn{2}{c|}{1.7E +/- 308} \\
-		\hline
-		bool & $\{0,1\}$& false (0)& true (1)\\
-		\hline
-	\end{tabular}
+		\midrule
+		\cppi{int} & $\mathbb{Z}$ & $-2 147 483 648$ & $2 147 483 647$ \\
+		\cppi{unsigned int} & $\mathbb{N}$ & $0$ & $4 294 967 295$ \\
+		\cppi{char} & $\mathbb{Z}$ & -128 & 127\\
+		\cppi{unsigned char} & $\mathbb{Z}$ & 0 & 255\\
+		\cppi{float} & $\mathbb{R}$& \multicolumn{2}{c}{$\pm 3,4\text{e}\pm38$ \scriptsize ($\simeq$ 7 décimales)}\\
+		\cppi{double} & $\mathbb{R}$& \multicolumn{2}{c}{$\pm 1,7\text{e}\pm308$ \scriptsize ($\simeq$ 15 décimales)}\\
+		\cppi{bool} & $\{0,1\}$& \cppi{false} (0)& \cppi{true} (1)\\
+		\bottomrule
+	\end{tabularx}
 \end{frame}
 
 \begin{frame}[fragile]
@@ -105,6 +169,7 @@ cout << k << ", " << l << ", " << m << endl; // Affiche "3, 3, 4"
 
 int n = 5, o = n, p = INT_MAX ; // Initialisations
 cout << n << ", " << o << ", " << p << endl;
+// Affiche 5, 5, 2 147 483 647
 
 int q = r = 4 ; // Erreur ! (r n'existe pas)
 
@@ -115,6 +180,9 @@ s = 13; // Erreur !
 
 \begin{frame}[fragile]
 	\frametitle{Conversions et règles de calcul}
+	
+	Les opérateurs mathématiques usuels sont définis et utilisables, mais attention aux \textbf{conversions implicites} (transtypage).
+	
 	\begin{minipage}{0.42\linewidth}
 	\begin{block}{Opérateurs mathématiques}
 		\begin{itemize}
@@ -144,14 +212,54 @@ int i = int(h); // i = 5, pas de warning
 \end{minipage}
 \end{frame}
 
-\section{Tests}
+\begin{frame}[fragile]{Exemples}
+\setbeamercovered{} 
+\onslide<1->
+\begin{minted}{cpp}
+int a = 4, b = 3;
+double c = a/b;
+// Que vaut c ?
+\end{minted}
+\vspace*{-1em}
+\onslide<2->
+\begin{minted}{cpp}
+// c vaut 1, car la division a/b se fait en entier
+\end{minted}
+
+\onslide<3->
+\begin{minted}{cpp}
+double a = 4, b = 3;
+int c = a/b; 
+// Que vaut c ?
+\end{minted}
+\vspace*{-1em}
+\onslide<4-> 
+\begin{minted}{cpp}
+// c vaut 1. La division se fait en flottant (1,33) mais c est un int !
+\end{minted}
+
+\onslide<5->
+\begin{minted}{cpp}
+int a = 4;
+double c = a/3.;
+// Que vaut c ?
+\end{minted}
+\vspace*{-1em}
+\onslide<6->
+\begin{minted}{cpp}
+// c vaut 1,33, car 3. est un flottant, la division se fait donc en flottant.
+\end{minted}
+
+\end{frame}
+
+\section{Structures conditionnelles}
 
 \begin{frame}
 	\frametitle{Expressions booléennes}
-	Une expression booléenne est une affirmation, elle est soit \textbf{VRAIE} soit \textbf{FAUSSE}.
+	Une expression booléenne est une affirmation pouvant être soit \textbf{VRAIE} soit \textbf{FAUSSE}, qui peut dépendre des variables intervenant dans son écriture. On parle également de prédicat logique.
 	\vfill
 	\begin{block}{En C++}
-		Le résultat d'une expression booléenne est un booléen, type \texttt{\textbf{bool}} qui prend les valeurs \texttt{\textbf{true}} ou \texttt{\textbf{false}}.
+		Le résultat d'une expression booléenne est un booléen, type \cppi{bool} qui prend les valeurs \cppi{true} ou \cppi{false}.
 	\end{block}
 
 \end{frame}
@@ -181,14 +289,15 @@ cout << b3 || b1 << endl; // 1
 cout << ! b3 << endl; // 0
 		\end{minted}
 	\end{minipage}
+	\uncover<2->{
 	\begin{block}{Priorités}
 		Le \textbf{ET} est prioritaire sur le \textbf{OU}
-	\end{block}
-
+	\end{block}}
+  \uncover<3->{
 	\begin{block}{a XOR b}
 		\centering
 		\texttt{ a \&\& (!b) || (!a) \&\& b }
-	\end{block}
+	\end{block}}
 
 \end{frame}
 
@@ -203,8 +312,8 @@ int annee;
 cout << "Entrez une année" << endl;
 cin >> annee;
 
-if( annee % 4 == 0){
-    if(annee % 100 == 0 && annee%400 != 0){
+if(annee % 4 == 0){
+    if(annee % 100 == 0 && annee % 400 != 0){
         cout << "Cette année n'est pas bissextile" << endl;
     } else {
         cout << "Année bissextile" << endl;
@@ -218,7 +327,8 @@ if( annee % 4 == 0){
 \begin{frame}[fragile]
 	\frametitle{Le switch}
 	Le \texttt{\textbf{switch}} permet une énumération de ce qu'il faut faire en fonction des valeurs d'une variable \textbf{entière}.
-    \vspace{-0.3em}
+	\vspace{-0.8em}
+
 	\begin{minipage}{0.47\linewidth}
 		\begin{minted}{cpp}
 char c;
@@ -305,6 +415,7 @@ cout << c << endl; // ERREUR !
 
     \begin{minipage}{0.47\linewidth}
         \begin{minted}{python}
+# Python
 a = 30
 while a>0:
     print(a)
@@ -315,6 +426,7 @@ while a>0:
     \hfill
     \begin{minipage}{0.47\linewidth}
         \begin{minted}{cpp}
+// C++
 int a = 30;
 while(a > 0){
     cout << a << endl;
@@ -339,7 +451,8 @@ while(b != 1024);
 
     \begin{minipage}{0.37\linewidth}
         \begin{minted}{python}
-for a in xrange(10):
+# Python
+for a in range(10):
     print(a)
 
 # C'est équivalent à :
@@ -353,7 +466,9 @@ while a < 10:
     \hfill
     \begin{minipage}{0.57\linewidth}
         \begin{minted}{cpp}
-for(int a = 0; a < 10; a++){ // a++ est a = a + 1
+// C++
+for(int a = 0; a < 10; a++){
+// a++ signifie a = a + 1
     cout << a << endl;
 }
 
@@ -370,15 +485,15 @@ while(a < 10){
 
 \begin{frame}[fragile]
     \frametitle{Sortir des boucles}
-    L'instruction \texttt{\textbf{break}} permet de forcer la sortie d'une boucle.
+    L'instruction \cppi{break} permet de forcer la sortie d'une boucle.
     \vfill
     \begin{minipage}{0.37\linewidth}
     \begin{minted}{cpp}
 /*
-Sortir d'une boucle infinie
+Sortir d'une boucle infinie en C++
 */
 int a = 1;
-while(true){ // boucle infini
+while(true){ // boucle infinie
     a *= 2;
     cout << a << endl;
     if(a > 5000){
@@ -391,7 +506,7 @@ while(true){ // boucle infini
     \begin{minipage}{0.57\linewidth}
     \begin{minted}{cpp}
 /*
-Sortir avant le terme d'un for
+Sortir avant la fin d'une boucle for en C++
 */
 for(int i = 0; i < 10; i++){
     int res;
@@ -543,7 +658,9 @@ int main(){
 \begin{frame}
 	\frametitle{Le passage par référence}
 
-	Le passage par référence est une solution aux problèmes précédents. Il autorise la modification de l'argument concerné.
+  Ces problèmes sont dus à la copie qui est réalisée lorsque l'on entre dans une fonction.
+
+	Le passage par référence est une solution aux problèmes précédents. Il autorise la modification de l'argument concerné en le préfixant dans la signature de la fonction par \texttt{\&}.
 
 	\begin{block}{Syntaxe}
 	\texttt{type f(type1 {\huge\textbf{\&}} arg1, type2 {\huge\textbf{\&}} arg2, type3 arg3 ...)\{...\}}
@@ -566,9 +683,9 @@ void f(int & a, int & b){
 	\begin{minipage}{0.47\linewidth}
 		\begin{minted}{cpp}
 int main(){
-   int x, y;
+   int x = 0, y = 0;
    f(x, y);
-   cout << x << " " << y;
+   cout << x << ", " << y;
    // Affiche "3, 5"
 }
 		\end{minted}
@@ -592,8 +709,8 @@ void switch_2(double & a,
 int main(){
     double x = 5, y = 7;
     switch_2(x,y);
-    cout << x << " " << y;
-    // affiche 7 5
+    cout << x << ", " << y;
+    // affiche 7, 5
 }
 			\end{minted}
 		\end{minipage}
@@ -632,9 +749,47 @@ Fonctionnement de la fonction \texttt{switch\_2}
 \only<9>{\includegraphics[width=\linewidth]{images/switch_2_07.pdf}}
 \end{frame}
 
+\begin{frame}[fragile]{Exemples}
+\setbeamercovered{} 
+\onslide<1->
+\begin{minted}{cpp}
+int f(double a, int &b){
+  a = 2.5;
+  b = 1;
+  return a/b;
+}
+double a = 3.14;
+int b = 2;
+int c = f(a,b);
+// Que valent a, b et c ?
+\end{minted}
+\vspace*{-1em}
+\onslide<2->
+\begin{minted}{cpp}
+// a = 3.14 (pas modifié), b = 1 (référence), c = 2 car c'est un int !
+\end{minted}
+
+\vspace*{-1em}
+\onslide<3->
+\begin{minted}{cpp}
+double g(double &a, double &b){
+  return (a + b)/2;
+}
+double a = 9, b = 0;
+double c = g(a,b); 
+// Que valent a, b et c ?
+\end{minted}
+\vspace*{-1em}
+\onslide<4-> 
+\begin{minted}{cpp}
+// a=9 et b=0 sont passés par référence mais non modifiés, c=4.5
+\end{minted}
+\end{frame}
+
+
 \begin{frame}[fragile]
 	\frametitle{Surcharge}
-	Il est possible de donner le même nom à deux fonctions (ou plus) à condition que les types ou le nombre des arguments de celles-ci soient différents.
+	Il est possible de donner le même nom à deux fonctions (ou plus) à condition que les types ou le nombre des arguments de celles-ci soient différents. Autrement, deux fonctions peuvent avoir le même nom si leurs signatures diffèrent.
 	\vfill
 	\begin{minipage}{0.47\linewidth}
 	\begin{minted}{cpp}
@@ -787,13 +942,13 @@ void g(int i){
 \begin{frame}[fragile]
 	\frametitle{Variables locales et globales}
 
-\begin{alert}{Attention}
+\begin{alertblock}{Attention}
 	L'usage des variables globales est à limiter au maximum :
 	\begin{itemize}
 		\item La communication entre les fonctions est source de bugs.
 		\item Elles rendent les fonctions difficilement réutilisables.
 	\end{itemize}
-\end{alert}
+\end{alertblock}
 
 \begin{block}{Usage}
 	Les variables globales sont des constantes générales.
@@ -827,6 +982,8 @@ int main(){
                 \item École : Windows, Linux
             \end{itemize}
         \item IDE au choix (QtCreator recommandé)
+        \item \alert<+>{À rendre sous forme d'archive \texttt{.zip} sur \textbf{Educnet} avant le \textbf{26/09}}
+        \item \alert<+>{\textbf{Exercice individuel} à rendre pour le \textbf{3/10}}
     \end{itemize}
 \end{frame}
 
@@ -835,29 +992,13 @@ int main(){
 	\begin{block}{Sujet}
         \begin{itemize}
             \item Utilisation du débogueur
-            \item Utiliser Imagine++ pour jouer à Pong !
+            \item Prise en main de la bibliothèque Imagine++
+            \item Programmation d'un mini-jeu de tennis
         \end{itemize}
 	\end{block}
-
-\end{frame}
-
-
-\begin{frame}{Installation sur les portables}
-
-	\begin{block}{Instructions}
-		Elles sont accessibles via le site du cours :\\
-		\textbf{\url{http://imagine.enpc.fr/~monasse/Info/}}
-	\end{block}
-
-	\begin{block}{Pour travailler chez vous}
-		Installer un IDE et Imagine++ sur vos portables.
-	\end{block}
-	
-	\begin{alertblock}{En cas de problème}
-		Séance d'installation lundi 26 septembre à 16h45 \\
-		Prendre rendez-vous avec Pascal Monasse
-	\end{alertblock}
-
+  \begin{center}
+    \includegraphics[width=0.38\textwidth]{images/tennis}
+  \end{center}
 \end{frame}
 
 \end{document}
