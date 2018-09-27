@@ -1,12 +1,12 @@
 \input{../preamble.tex}
 \subtitle{Les tableaux statiques}
-\date[29 sep. 2017]{Vendredi 29 septembre 2017}
+\date[28 sep. 2018]{Vendredi 28 septembre 2018}
 \maketitle
 
 \begin{frame}{Avant toute chose}
   \begin{block}{Supports de cours}
-    Site du cours : {\small \url{http://imagine.enpc.fr/~monasse/Info/}}\\
-  	Slides : {\small \url{https://nicolas.audebert.at/teaching/}}
+    Site du cours: {\small \url{http://imagine.enpc.fr/~monasse/Info/}}\\
+  	Planches: {\small \url{https://nicolas.audebert.at/teaching/}}
   \end{block}
 
   \begin{alertblock}{Rendus de TP et des exercices}
@@ -48,70 +48,28 @@
     Une expression booléenne est une affirmation pouvant se réduire à une valeur de type \mintinline{cpp}{bool} pouvant être soit \mintinline{cpp}{true}, soit \mintinline{cpp}{false}.
     \end{block}
     
-    \begin{exampleblock}{if(...) then ... else ...}
+    \begin{exampleblock}{\texttt{if(...) then ... else ...}}
     \begin{minted}{cpp}
-    if(expression booleenne){
-    	...
-    } else {
-    	...
-    }
+if(expression booleenne){
+  ...
+} else {
+  ...
+}
     \end{minted}
     \end{exampleblock}
     
-    \begin{exampleblock}{switch}
+    \begin{exampleblock}{\texttt{switch}}
     Cf. chapitre 3.
     \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile=singleslide]
-	\frametitle{Portée}
-    \begin{block}{La règle des accolades}
-    Une variable n'existe que dans le bloc (et les sous-blocs), défini par des accolades, dans lequel elle a été déclarée.
-    \end{block}
-    
-    \begin{exampleblock}{Comparaison Python/C++}
-    \vspace{-0.5em}
-    \begin{minipage}{0.48\textwidth}
-    \begin{minted}{cpp}
-# Python
-a = 3
-b = 6
-if a < b:
-  # Début du sous-bloc
-  c = a + b
-  print(c)
-  # Qui s'arrête ici
-print(c)
-    \end{minted}
-    \end{minipage}
-    \begin{minipage}{0.48\textwidth}
-    \begin{minted}{cpp}
-// C++
-int a = 3, b= 6;
-if(a < b){
-  // Début du sous-bloc
-  int c = a + b;
-  cout << c << endl;
-  // Qui s'arrête ici
-}
-cout << c << endl; // Erreur
-    \end{minted}
-    \end{minipage}
-    \vspace{-0.5em}
-    \end{exampleblock}
-    
-    \begin{alertblock}{Variables globales}
-    À utiliser avec parcimonie.
-    \end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]
 	\frametitle{Boucles}
 	\begin{block}{Boucle \texttt{while} (tant que)}
 		\begin{minted}{cpp}
-		while(expression){...}
+while(expression){...}
 
-		do {...} while (expression);
+do {...} while (expression);
         \end{minted}
 	\end{block}
     
@@ -140,7 +98,7 @@ cout << c << endl; // Erreur
     \end{alertblock}
 \end{frame}
 
-\section{Déclaration et définition}
+\section{Manipulation des tableaux}
 
 \begin{frame}
 	\frametitle{Pourquoi utiliser les tableaux ?}
@@ -166,7 +124,7 @@ cout << c << endl; // Erreur
     \begin{alertblock}{Conséquences}
     \begin{itemize}
     	\item Un tableau ne peut contenir des éléments que d'\textbf{un seul et même type},
-        \item La taille d'un tableau statique \textbf{ne peut pas changer}.
+      \item La taille d'un tableau statique \textbf{ne peut pas changer}, elle est fixée à la compilation.
     \end{itemize}
     \end{alertblock}
 \end{frame}
@@ -180,18 +138,18 @@ cout << c << endl; // Erreur
 	
 	\begin{exampleblock}{Initialisation}
     \begin{minted}{cpp}
-		int mon_tableau[10];
-		// Initialisation manuelle à l'aide d'une boucle
-		for(int i=0; i < 10; i++){
-        	mon_tableau[i] = 5;
-		}
+int mon_tableau[10];
+// Initialisation manuelle à l'aide d'une boucle
+for(int i=0; i < 10; i++){
+    mon_tableau[i] = 5;
+}
 
-		// Déclaration et initialisation directe
-		double tableau_reel[5] = {2, 3.2, 9.76, 6, 1000};
+// Déclaration et initialisation directe
+double tableau_reel[5] = {2, 3.2, 9.76, 6, 1000};
 
-		// Déclaration puis initialisation directe
-		bool tableau_bool[3];
-		tableau_bool = {true, true, false};
+// Déclaration puis initialisation directe
+bool tableau_bool[3];
+tableau_bool = {true, true, false};
     \end{minted}
 	\end{exampleblock}
 \end{frame}
@@ -202,22 +160,18 @@ cout << c << endl; // Erreur
     
 	\begin{minipage}{0.49\linewidth}
 		\begin{minted}{python}
-        # Python
-        tab1 = [0,0,0,0,0]
-        tab1[2] = 5
+# Python
+tab1 = [0,0,0,0,0]
+tab1[2] = 5
 
-        tab2 = ["test", 10, True]
-
-
+tab2 = ["test", 10, True]
 
 
 
 
-
-
-        t = 6
-        tab3 = [0 for i in range(t)]
-        tab3.append(100)
+t = 6
+tab3 = [0 for i in range(t)]
+tab3.append(100)
 		\end{minted}
  	\end{minipage}
  	\begin{minipage}{0.50\linewidth}
@@ -302,10 +256,10 @@ Une fonction peut manipuler un tableau dans sa signature~:
 \begin{minted}{cpp}
 
 void affiche(int t[5]){
-    for(int i=0; i<5; i++){
-    	cout << t[i] << " ";
-    }
-    cout << endl;
+  for(int i=0; i<5; i++){
+    cout << t[i] << " ";
+  }
+  cout << endl;
 }
 
 \end{minted}
@@ -315,10 +269,10 @@ void affiche(int t[5]){
 \begin{minted}{cpp}
 
 void affiche(int t[], int taille){
-    for(int i=0; i<taille; i++){
-    	cout << t[i] << " ";
-    }
-    cout << endl;
+  for(int i=0; i<taille; i++){
+    cout << t[i] << " ";
+  }
+  cout << endl;
 }
 
 \end{minted}
