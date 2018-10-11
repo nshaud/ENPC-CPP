@@ -1,13 +1,13 @@
 \input{../preamble.tex}
 \subtitle{Les structures}
-\date[6 oct. 2017]{Vendredi 6 octobre 2017}
+\date[5 oct. 2018]{Vendredi 5 octobre 2018}
 \maketitle
 
 \begin{frame}{Avant toute chose}
   \begin{alertblock}{Rendus de TP et des exercices}
   Les rendus se font sur \href{https://educnet.enpc.fr}{\textbf{Educnet}}.
   \begin{enumerate}
-  	\item Le code rendu \textbf{doit compiler}.
+    \item Le code rendu \textbf{doit compiler}.
     \item Le code rendu doit \textbf{être propre} (indentation, noms de variables clairs).
     \item Le code rendu doit \textbf{être commenté} (réponses aux questions, fonctionnement du code).
     \item Rassembler le code dans une seule archive (\texttt{.zip}, \texttt{.rar}, \texttt{.tar.gz}, etc.).
@@ -20,10 +20,10 @@
 
 
 \begin{frame}[fragile=singleslide]
-	\frametitle{Propriétés des tableaux statiques}
-	Les tableaux statiques sont caractérisés par le \textbf{type} de leurs éléments et leur \textbf{taille}.
+    \frametitle{Propriétés des tableaux statiques}
+    Les tableaux statiques sont caractérisés par le \textbf{type} de leurs éléments et leur \textbf{taille}.
 	
-	\begin{exampleblock}{Exemple}
+    \begin{exampleblock}{Exemple}
     \begin{minted}{cpp}
 		int mon_tableau[10];
 		// Initialisation manuelle à l'aide d'une boucle
@@ -38,12 +38,12 @@
 		bool tableau_bool[3];
 		tableau_bool = {true, true, false};
     \end{minted}
-	\end{exampleblock}
+    \end{exampleblock}
 \end{frame}
 
 \begin{frame}[fragile=singleslide]
-	\frametitle{Manipulation des tableaux}
-	Si \texttt{\textbf{n}} est la taille du tableau, alors les indices vont de \texttt{\textbf{0}} à \texttt{\textbf{n-1}}.
+    \frametitle{Manipulation des tableaux}
+    Si \texttt{\textbf{n}} est la taille du tableau, alors les indices vont de \texttt{\textbf{0}} à \texttt{\textbf{n-1}}.
     
     \begin{alertblock}{Attention}
     Tenter d'accéder à un élément hors de ces bornes résultera systématiquement en une erreur lors de l'exécution du programme.
@@ -65,7 +65,7 @@ tab[-1] = 'z'; // ERREUR
 \begin{frame}[fragile=singleslide]
 \frametitle{Tableaux et fonctions}
 
-Une fonction peut manipuler un tableau dans sa signature~:
+Une fonction peut manipuler un tableau dans sa signature:
 
 \begin{minipage}{0.47\linewidth}
 \begin{minted}{cpp}
@@ -248,11 +248,11 @@ struct Client{
 
 
 Client cli1;
-cli1.nom = "Presley"
-cli1.prenom = "Elvis"
-cli1.naissance[0] = 8;
-cli1.naissance[1] = 1;
-cli1.naissance[2] = 1935;
+cli1.nom = "Lovelace"
+cli1.prenom = "Ada"
+cli1.naissance[0] = 10;
+cli1.naissance[1] = 12;
+cli1.naissance[2] = 1815;
 
 		\end{minted}
 	\end{minipage}
